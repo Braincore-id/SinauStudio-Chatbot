@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm install -g npm@9.5.1
 
+RUN npm audit fix --force
+
 RUN npm install --omit=dev
 
 COPY . ./
