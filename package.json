@@ -1,0 +1,27 @@
+{
+  "name": "sinaustudio-chatbot",
+  "version": "1.0.0",
+  "description": "The source code of SinauStudio chatbot using webhook",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Braincore-id/SinauStudio-Chatbot.git"
+  },
+  "keywords": [
+    "Chatbot"
+  ],
+  "author": "Eric Julianto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Braincore-id/SinauStudio-Chatbot/issues"
+  },
+  "homepage": "https://github.com/Braincore-id/SinauStudio-Chatbot#readme",
+  "dependencies": {
+    "actions-on-google": "^2.14.0",
+    "dialogflow-fulfillment": "^0.6.1",
+    "express": "^4.18.2"
+  }
+}
