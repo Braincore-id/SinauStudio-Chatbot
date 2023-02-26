@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const { WebhookClient, Payload } = require("dialogflow-fulfillment");
 
 const app = express();
 app.use(bodyParser.json());
+app.use(morgan("combined"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -20,56 +22,56 @@ app.post("/", express.json(), (request, response) => {
     const a = 1;
     const b = 2;
     const c = 3;
-    const payloadData = {
-      richContent: [
-        [
-          {
-            type: "info",
-            title: "Jadwal Kuliah",
-            subtitle: "Berikut adalah jadwal kuliah Anda",
+    const meetings = [
+      {
+        day: "Rabu",
+        time: "09.00-11.00",
+        course: "Pemrograman Berbasis Objek - PBO01",
+        value: a,
+      },
+      {
+        day: "Kamis",
+        time: "13.00-15.00",
+        course: "Algoritma Pemrograman - AP01",
+        value: b,
+      },
+      {
+        day: "Sabtu",
+        time: "07.00-09.00",
+        course: "Jaringan Komputer - JK50",
+        value: c,
+      },
+    ];
+
+    const richContent = [
+      {
+        type: "info",
+        title: "Jadwal Kuliah",
+        subtitle: "Berikut adalah jadwal kuliah Anda",
+      },
+      {
+        type: "divider",
+      },
+    ];
+
+    for (let i = 0; i < meetings.length; i++) {
+      const meeting = meetings[i];
+      richContent.push({
+        type: "list",
+        title: `${meeting.day} ${meeting.time}`,
+        subtitle: meeting.course,
+        event: {
+          name: "meeting_date",
+          languageCode: "",
+          parameters: {
+            value: meeting.value,
           },
-          {
-            type: "divider",
-          },
-          {
-            type: "list",
-            title: "Rabu 09.00-11.00",
-            subtitle: "Pemrograman Berbasis Objek - PBO01",
-            event: {
-              name: "meeting_date",
-              languageCode: "",
-              parameters: {
-                value: a,
-              },
-            },
-          },
-          {
-            type: "list",
-            title: "Kamis 13.00-15.00",
-            subtitle: "Algoritma Pemrograman - AP01",
-            event: {
-              name: "meeting_date",
-              languageCode: "",
-              parameters: {
-                value: b,
-              },
-            },
-          },
-          {
-            type: "list",
-            title: "Sabtu 07.00-09.00",
-            subtitle: "Jaringan Komputer - JK50",
-            event: {
-              name: "meeting_date",
-              languageCode: "",
-              parameters: {
-                value: c,
-              },
-            },
-          },
-        ],
-      ],
-    };
+        },
+      });
+    }
+
+    const payloadData = { richContent: [richContent] };
+
     agent.add(
       new Payload(agent.UNSPECIFIED, payloadData, {
         sendAsMessage: true,
