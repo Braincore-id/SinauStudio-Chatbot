@@ -80,10 +80,234 @@ app.post("/", express.json(), (request, response) => {
     );
   };
 
+  const arrangeMeeting = (agent) => {
+    const a = 1;
+    const b = 2;
+    const c = 3;
+    var payloadData = {
+      richContent: [
+        [
+          {
+            type: "info",
+            title: "Tanggal Tersedia Bimbingan",
+            subtitle:
+              "Berikut adalah jadwal dosen pembimbing Anda untuk konsultasi. Silahkan pilih 1:",
+          },
+          {
+            type: "divider",
+          },
+          {
+            type: "list",
+            title: "31/05/2023",
+            event: {
+              name: "meeting_date",
+              languageCode: "",
+              parameters: {
+                value: a,
+              },
+            },
+          },
+          {
+            type: "list",
+            title: "02/06/2023",
+            event: {
+              name: "meeting_date",
+              languageCode: "",
+              parameters: {
+                value: b,
+              },
+            },
+          },
+          {
+            type: "list",
+            title: "03/06/2023",
+            event: {
+              name: "meeting_date",
+              languageCode: "",
+              parameters: {
+                value: c,
+              },
+            },
+          },
+        ],
+      ],
+    };
+    agent.add(
+      new Payload(agent.UNSPECIFIED, payloadData, {
+        sendAsMessage: true,
+        rawPayload: true,
+      })
+    );
+  };
+
+  function getMeetingDate(agent) {
+    agent.add("Alright, you already choose this selected date:");
+    console.log(request.body.queryResult.outputContexts);
+
+    infoContext = agent.context.get("meeting_date");
+    console.log(infoContext);
+    choice = infoContext.parameters.value;
+
+    if (choice == 1) {
+      var payloadData = {
+        richContent: [
+          [
+            {
+              type: "info",
+              title: "Final Meeting Confirmation",
+              subtitle:
+                "Please confirm are you sure want to arrange a meeting with the Academic Director?",
+            },
+            {
+              type: "divider",
+            },
+            {
+              type: "chips",
+              options: [
+                {
+                  image: {
+                    src: {
+                      rawUrl:
+                        "https://raw.githubusercontent.com/algonacci/Free-CDN/main/succes_icon.png",
+                    },
+                  },
+                  text: "Yes, I'm sure",
+                },
+                {
+                  image: {
+                    src: {
+                      rawUrl:
+                        "https://raw.githubusercontent.com/algonacci/Free-CDN/main/fail_icon.png",
+                    },
+                  },
+                  text: "No, I want to reschedule",
+                },
+              ],
+            },
+          ],
+        ],
+      };
+      agent.add(
+        new Payload(agent.UNSPECIFIED, payloadData, {
+          sendAsMessage: true,
+          rawPayload: true,
+        })
+      );
+    } else if (choice == 2) {
+      var payloadData = {
+        richContent: [
+          [
+            {
+              type: "info",
+              title: "Final Meeting Confirmation",
+              subtitle:
+                "Please confirm are you sure want to arrange a meeting with the Academic Director?",
+            },
+            {
+              type: "divider",
+            },
+            {
+              type: "chips",
+              options: [
+                {
+                  image: {
+                    src: {
+                      rawUrl:
+                        "https://raw.githubusercontent.com/algonacci/Free-CDN/main/succes_icon.png",
+                    },
+                  },
+                  text: "Yes, I'm sure to arrange the meeting",
+                },
+                {
+                  image: {
+                    src: {
+                      rawUrl:
+                        "https://raw.githubusercontent.com/algonacci/Free-CDN/main/fail_icon.png",
+                    },
+                  },
+                  text: "No, I want to reschedule",
+                },
+              ],
+            },
+          ],
+        ],
+      };
+      agent.add(
+        new Payload(agent.UNSPECIFIED, payloadData, {
+          sendAsMessage: true,
+          rawPayload: true,
+        })
+      );
+    } else {
+      var payloadData = {
+        richContent: [
+          [
+            {
+              type: "info",
+              title: "Final Meeting Confirmation",
+              subtitle:
+                "Please confirm are you sure want to arrange a meeting with the Academic Director?",
+            },
+            {
+              type: "divider",
+            },
+            {
+              type: "chips",
+              options: [
+                {
+                  image: {
+                    src: {
+                      rawUrl:
+                        "https://raw.githubusercontent.com/algonacci/Free-CDN/main/succes_icon.png",
+                    },
+                  },
+                  text: "Yes, I'm sure",
+                },
+                {
+                  image: {
+                    src: {
+                      rawUrl:
+                        "https://raw.githubusercontent.com/algonacci/Free-CDN/main/fail_icon.png",
+                    },
+                  },
+                  text: "No, I want to reschedule",
+                },
+              ],
+            },
+          ],
+        ],
+      };
+      agent.add(
+        new Payload(agent.UNSPECIFIED, payloadData, {
+          sendAsMessage: true,
+          rawPayload: true,
+        })
+      );
+    }
+  }
+
+  function arrangeMeetingConfirmationYes(agent) {
+    agent.add(
+      "Thanks Tom! Alright, we will setup a meeting for you and will send the detail of the meeting to you email."
+    );
+  }
+
+  function arrangeMeetingConfirmationNo(agent) {
+    agent.add("Alright, no problem.");
+    agent.add("Is there anything I can help?");
+  }
+
   const intentMap = new Map();
 
   intentMap.set("01_Demo", demo);
   intentMap.set("02_CheckSchedule", checkSchedule);
+  intentMap.set("03_JadwalDospem", arrangeMeeting);
+  intentMap.set("03_JadwalDospem - custom", getMeetingDate);
+  intentMap.set(
+    "03_JadwalDospem - custom - yes",
+    arrangeMeetingConfirmationYes
+  );
+  intentMap.set("03_JadwalDospem - custom - no", arrangeMeetingConfirmationNo);
 
   agent.handleRequest(intentMap);
 });
