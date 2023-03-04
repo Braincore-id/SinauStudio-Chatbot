@@ -141,9 +141,7 @@ app.post("/", express.json(), (request, response) => {
   };
 
   function getMeetingDate(agent) {
-    agent.add(
-      `Baik, Anda telah memilih tanggal tersebut: ${request.body.queryResult.outputContexts}`
-    );
+    agent.add(`Baik, Anda telah memilih tanggal tersebut`);
     console.log(request.body.queryResult.outputContexts);
 
     infoContext = agent.context.get("meeting_date");
