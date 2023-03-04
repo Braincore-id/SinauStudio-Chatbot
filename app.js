@@ -141,7 +141,9 @@ app.post("/", express.json(), (request, response) => {
   };
 
   function getMeetingDate(agent) {
-    agent.add("Alright, you already choose this selected date:");
+    agent.add(
+      `Baik, Anda telah memilih tanggal tersebut: ${request.body.queryResult.outputContexts}`
+    );
     console.log(request.body.queryResult.outputContexts);
 
     infoContext = agent.context.get("meeting_date");
@@ -154,9 +156,9 @@ app.post("/", express.json(), (request, response) => {
           [
             {
               type: "info",
-              title: "Final Meeting Confirmation",
+              title: "Konfimasi pertemuan",
               subtitle:
-                "Please confirm are you sure want to arrange a meeting with the Academic Director?",
+                "Mohon konfirmasi Anda benar ingin membuat pertemuan ini",
             },
             {
               type: "divider",
@@ -171,7 +173,7 @@ app.post("/", express.json(), (request, response) => {
                         "https://raw.githubusercontent.com/algonacci/Free-CDN/main/succes_icon.png",
                     },
                   },
-                  text: "Yes, I'm sure",
+                  text: "Ya, saya yakin",
                 },
                 {
                   image: {
@@ -180,7 +182,7 @@ app.post("/", express.json(), (request, response) => {
                         "https://raw.githubusercontent.com/algonacci/Free-CDN/main/fail_icon.png",
                     },
                   },
-                  text: "No, I want to reschedule",
+                  text: "Tidak, saya ingin merubah jadwal",
                 },
               ],
             },
@@ -216,7 +218,7 @@ app.post("/", express.json(), (request, response) => {
                         "https://raw.githubusercontent.com/algonacci/Free-CDN/main/succes_icon.png",
                     },
                   },
-                  text: "Yes, I'm sure to arrange the meeting",
+                  text: "Ya, saya yakin",
                 },
                 {
                   image: {
@@ -225,7 +227,7 @@ app.post("/", express.json(), (request, response) => {
                         "https://raw.githubusercontent.com/algonacci/Free-CDN/main/fail_icon.png",
                     },
                   },
-                  text: "No, I want to reschedule",
+                  text: "Tidak, saya ingin merubah jadwal",
                 },
               ],
             },
@@ -261,7 +263,7 @@ app.post("/", express.json(), (request, response) => {
                         "https://raw.githubusercontent.com/algonacci/Free-CDN/main/succes_icon.png",
                     },
                   },
-                  text: "Yes, I'm sure",
+                  text: "Ya, saya yakin",
                 },
                 {
                   image: {
@@ -270,7 +272,7 @@ app.post("/", express.json(), (request, response) => {
                         "https://raw.githubusercontent.com/algonacci/Free-CDN/main/fail_icon.png",
                     },
                   },
-                  text: "No, I want to reschedule",
+                  text: "Tidak, saya ingin merubah jadwal",
                 },
               ],
             },
@@ -288,13 +290,13 @@ app.post("/", express.json(), (request, response) => {
 
   function arrangeMeetingConfirmationYes(agent) {
     agent.add(
-      "Thanks Tom! Alright, we will setup a meeting for you and will send the detail of the meeting to you email."
+      "Terima kasih atas konfirmasinya, kami akan mengirim detail pertemuan ke Email Anda"
     );
   }
 
   function arrangeMeetingConfirmationNo(agent) {
-    agent.add("Alright, no problem.");
-    agent.add("Is there anything I can help?");
+    agent.add("Baik, tidak masalah");
+    agent.add("Ada yang bisa dibantu?");
   }
 
   const intentMap = new Map();
