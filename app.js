@@ -26,7 +26,7 @@ app.post("/", express.json(), (request, response) => {
       {
         day: "Rabu",
         time: "09.00-11.00",
-        course: "Pemrograman Berbasis Objek - PBO01",
+        course: "Matematika Wajib - MW01",
         value: a,
       },
       {
@@ -38,7 +38,7 @@ app.post("/", express.json(), (request, response) => {
       {
         day: "Sabtu",
         time: "07.00-09.00",
-        course: "Jaringan Komputer - JK50",
+        course: "Perakitan Komputer - PK50",
         value: c,
       },
     ];
