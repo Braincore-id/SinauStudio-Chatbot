@@ -199,9 +199,9 @@ app.post("/", express.json(), (request, response) => {
           [
             {
               type: "info",
-              title: "Final Meeting Confirmation",
+              title: "Konfimasi pertemuan",
               subtitle:
-                "Please confirm are you sure want to arrange a meeting with the Academic Director?",
+                "Mohon konfirmasi Anda benar ingin membuat pertemuan ini",
             },
             {
               type: "divider",
@@ -244,9 +244,9 @@ app.post("/", express.json(), (request, response) => {
           [
             {
               type: "info",
-              title: "Final Meeting Confirmation",
+              title: "Konfimasi pertemuan",
               subtitle:
-                "Please confirm are you sure want to arrange a meeting with the Academic Director?",
+                "Mohon konfirmasi Anda benar ingin membuat pertemuan ini",
             },
             {
               type: "divider",
