@@ -299,6 +299,35 @@ app.post("/", express.json(), (request, response) => {
     agent.add("Ada yang bisa dibantu?");
   }
 
+  function kontakKetuaKelas(agent) {
+    const payload = {
+      richContent: [
+        [
+          {
+            type: "info",
+            title: "Kontak WA Ketua Kelas Matematika Wajib",
+            subtitle: "Kontak WA",
+            image: {
+              src: {
+                rawUrl:
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png",
+              },
+            },
+            actionLink:
+              "https://api.whatsapp.com/send?phone=6281572697825&text=Halo, ketua kelas Matematika Wajib? Minta tolong diinvite ke grup yaa.",
+          },
+        ],
+      ],
+    };
+
+    agent.add(
+      new Payload(agent.UNSPECIFIED, payload, {
+        sendAsMessage: true,
+        rawPayload: true,
+      })
+    );
+  }
+
   const intentMap = new Map();
 
   intentMap.set("01_Demo", demo);
@@ -310,6 +339,7 @@ app.post("/", express.json(), (request, response) => {
     arrangeMeetingConfirmationYes
   );
   intentMap.set("03_JadwalDospem - custom - no", arrangeMeetingConfirmationNo);
+  intentMap.set("04_KontakKetuaKelas", kontakKetuaKelas);
 
   agent.handleRequest(intentMap);
 });
